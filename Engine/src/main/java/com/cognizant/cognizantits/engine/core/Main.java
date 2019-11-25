@@ -15,6 +15,7 @@
  */
 package com.cognizant.cognizantits.engine.core;
 
+import com.cognizant.cognizantits.datalib.testdata.TestDataFactory;
 import com.cognizant.cognizantits.engine.core.Control;
 import com.cognizant.cognizantits.engine.cli.LookUp;
 import com.cognizant.cognizantits.engine.constants.SystemDefaults;
@@ -46,7 +47,9 @@ public class Main {
     private static final Logger LOG = Logger.getLogger(Control.class.getName());
 
     public static void main(String[] args) throws UnCaughtException {
-        Control.initDeps();
+        TestDataFactory.load();
+        MethodInfoManager.load();
+        Encryption.getInstance();
          SystemDefaults.getClassesFromJar.set(true);
         if (args != null && args.length > 0) {
             LookUp.exe(args);
