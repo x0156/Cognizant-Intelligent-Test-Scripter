@@ -49,6 +49,7 @@ RUN if [ -z "$CHROME_DRIVER_VERSION" ]; \
 
 ARG CITS_VERSION=1.4
 ARG CITS_TAG=1.4_Beta
+ENV CITS_VERSION=$CITS_VERSION
 RUN echo "Using CITS version: "$CITS_VERSION \
   && wget --no-verbose -O /tmp/cits.zip https://github.com/CognizantQAHub/Cognizant-Intelligent-Test-Scripter/releases/download/v$CITS_TAG/cognizant-intelligent-test-scripter-$CITS_VERSION-setup.zip \
   && rm -rf /opt/cits \
@@ -57,7 +58,7 @@ RUN echo "Using CITS version: "$CITS_VERSION \
   && sed -i.command '1s/^/#!\/bin\/bash\n/' /opt/cognizant-intelligent-test-scripter-$CITS_VERSION/Run.command \
   && chmod 755 /opt/cognizant-intelligent-test-scripter-$CITS_VERSION/Run.command \
   && echo '#!/bin/bash' > /usr/bin/cits \
-  && echo './opt/cognizant-intelligent-test-scripter-$CITS_VERSION/Run.command "$@"' >> /usr/bin/cits \
+  && echo '/opt/cognizant-intelligent-test-scripter-$CITS_VERSION/Run.command "$@"' >> /usr/bin/cits \
   && chmod 755 /usr/bin/cits \
   && cits -version
  
